@@ -1,0 +1,3 @@
+# Optional dependency for scripts/run_timesfm3_gnn_comparison.py.
+# TimesFM 3 pretrained weights are non-commercial/non-production only.
+timesfm[torch]==3.0.1

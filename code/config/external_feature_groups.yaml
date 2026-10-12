@@ -1,0 +1,60 @@
+# Candidate aggregate feature groups for one-at-a-time ablations after covariates
+# are merged into a commune-month panel with scripts/merge_external_features.py.
+# Missing groups are skipped by run_external_feature_ablation.py. Association is
+# not assumed to imply forecasting value: each group must earn its place on a
+# blocked temporal validation set.
+
+groups:
+  serotype:
+    role: history
+    columns: [denv1_share, denv2_share, denv3_share, denv4_share, typed_samples_window, serotype_feature_available]
+
+  age_structure:
+    role: history
+    columns: [share_age_0_4, share_age_5_14, share_age_15_29, share_age_30_59, share_age_60_plus]
+
+  water_sanitation:
+    role: history
+    columns: [improved_water_share, piped_water_share, hygienic_toilet_share]
+
+  housing_socioeconomic:
+    role: history
+    columns: [persons_per_room, durable_housing_share, electricity_access_share]
+
+  urban_environment:
+    role: history
+    columns: [builtup_share, urban_growth_rate, nightlight_radiance, road_density]
+
+  topography:
+    role: history
+    columns: [elevation_mean, slope_mean]
+
+  satellite_environment:
+    role: climate
+    columns: [ndvi, surface_water_share, soil_moisture]
+
+  large_scale_climate:
+    role: history
+    columns: [nino34_index, iod_dmi]
+
+  vector_surveillance:
+    role: history
+    columns: [breteau_index, house_index, container_index]
+
+  health_access_reporting:
+    role: history
+    columns: [health_facility_density, travel_time_to_hospital]
+
+  vector_control:
+    role: history
+    columns: [fogging_coverage, larvicide_coverage, source_reduction_coverage]
+
+  observed_mobility:
+    role: history
+    columns: [mobility_import_pressure]
+
+# Ethnicity, ABO blood group and host-genetic variables are intentionally not
+# default groups. They are individual/sensitive or highly confounded attributes,
+# lack reliable commune-month coverage, and can create ecological fallacy when
+# used as aggregate forecasting covariates. Add only under an approved, explicit
+# scientific protocol with an aggregate source and a pre-specified hypothesis.

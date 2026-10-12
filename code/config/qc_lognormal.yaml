@@ -1,0 +1,58 @@
+data:
+  monthly_path: data/processed/qc_v1/monthly_commune.csv
+  centroids_path: data/processed/qc_v1/commune_centroids.csv
+  adjacency_path: data/processed/qc_v1/administrative_adjacency.csv
+  unit_column: fcode
+  province_column: l1_code
+  case_column: obs_dengue_cases
+  population_column: population
+  climate_columns: [t2m_avg, rh_avg, tp_accum]
+  history_covariate_columns: []
+  future_covariate_columns: []
+
+forecast:
+  horizons: [1, 2, 3]
+  evaluation_horizons: [1, 2, 3]
+  sequence_length: 12
+  seasonal_lag_years: [1, 2, 3, 4, 5]
+
+split:
+  train_start: "2010-01-01"
+  train_end: "2020-12-01"
+  validation_start: "2021-01-01"
+  validation_end: "2022-12-01"
+  test_start: "2023-01-01"
+  test_end: "2025-12-01"
+
+graph:
+  k_nearest: 8
+  maximum_distance_km: 100
+  include_administrative_edges: true
+
+model:
+  likelihood: lognormal
+  hidden_size: 32
+  graph_heads: 4
+  commune_embedding_size: 8
+  dilations: [1, 2, 4]
+  kernel_size: 3
+  dropout: 0.10
+  horizon_loss_weights: [1.0, 1.0, 1.0]
+  minimum_dispersion: 0.05
+  maximum_log_sigma: 3.0
+  outbreak_loss_weight: 0.0
+  alert_probability_source: samples
+
+training:
+  epochs: 35
+  patience: 5
+  batch_size: 8
+  learning_rate: 0.001
+  weight_decay: 0.0001
+  gradient_clip: 1.0
+  seed: 9411
+  device: auto
+
+sampling:
+  draws: 500
+  seed: 1234

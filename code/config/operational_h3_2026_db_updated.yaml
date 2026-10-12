@@ -1,0 +1,62 @@
+data:
+  monthly_path: ../outputs/commune_rerun_db_updated_2026/data/model_input_issue_2026-08.csv
+  centroids_path: data/processed/qc_v1/commune_centroids.csv
+  adjacency_path: data/processed/qc_v1/administrative_adjacency.csv
+  unit_column: fcode
+  province_column: l1_code
+  case_column: obs_dengue_cases
+  population_column: population
+  climate_columns: [t2m_avg, rh_avg, tp_accum, soil_moisture, solar_downward, dewpoint_c, et0_mm]
+  history_covariate_columns: []
+  future_covariate_columns: []
+  outbreak_thresholds_path: data/reference/operational_2026/commune_moh_thresholds_2015_2026.csv
+  outbreak_threshold_column: alert_threshold_moh
+
+forecast:
+  horizons: [1, 2, 3]
+  evaluation_horizons: [1, 2, 3]
+  sequence_length: 12
+  seasonal_lag_years: [1, 2, 3, 4, 5]
+
+split:
+  train_start: "2010-01-01"
+  train_end: "2018-12-01"
+  validation_start: "2019-01-01"
+  validation_end: "2020-12-01"
+  test_start: "2026-04-01"
+  test_end: "2026-11-01"
+  exact_target_windows: true
+
+graph:
+  k_nearest: 8
+  maximum_distance_km: 100
+  include_administrative_edges: true
+
+model:
+  likelihood: lognormal
+  hidden_size: 32
+  graph_heads: 4
+  commune_embedding_size: 8
+  dilations: [1, 2, 4]
+  kernel_size: 3
+  dropout: 0.10
+  horizon_loss_weights: [1.0, 1.0, 1.0]
+  minimum_dispersion: 0.05
+  maximum_log_sigma: 3.0
+  outbreak_loss_weight: 0.0
+  alert_probability_source: samples
+
+training:
+  epochs: 35
+  patience: 5
+  batch_size: 8
+  learning_rate: 0.001
+  weight_decay: 0.0001
+  gradient_clip: 1.0
+  seed: 9411
+  device: cpu
+  refit_on_train_validation: true
+
+sampling:
+  draws: 500
+  seed: 1234

@@ -1,0 +1,58 @@
+# Python caches, environments, and test state
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+
+# R session and local package state
+.Rhistory
+.RData
+.Rproj.user/
+.r-library/
+
+# Editors and operating-system metadata
+.DS_Store
+.vscode/
+.idea/
+*~
+*.swp
+
+# Model weights, checkpoints, and generated arrays
+*.bin
+*.ckpt
+*.h5
+*.joblib
+*.npz
+*.npy
+*.pkl
+*.pt
+*.pth
+*.rds
+*.safetensors
+
+# Generated experiment products
+artifacts/
+checkpoints/
+logs/
+outputs/
+results/
+runs/
+
+# Local/generated data (retain contracts and small versioned references)
+code/data/processed/
+code/data/synthetic/
+code/data/external/*/
+code/data/raw/*
+!code/data/raw/.gitkeep
+!code/data/raw/README.md
+
+# LaTeX build products
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz

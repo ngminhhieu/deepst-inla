@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dengue-commune-h3"
+version = "0.1.0"
+description = "Three-month-ahead probabilistic dengue forecasting at commune level"
+requires-python = ">=3.8"
+dependencies = [
+  "numpy>=1.24",
+  "pandas>=2.0",
+  "PyYAML>=6.0",
+  "torch>=2.1",
+  "scikit-learn>=1.3",
+  "matplotlib>=3.7",
+  "scipy>=1.10",
+  "Pillow>=10.0",
+  "python-docx>=1.1",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["dengue_h3*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
